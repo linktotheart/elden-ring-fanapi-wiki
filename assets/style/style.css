@@ -1,0 +1,10 @@
+@font-face {
+    font-family: 'Mantinia Regular';
+    src: url('../fonts/Mantinia Regular.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Mantinia Regular' !important;
+}

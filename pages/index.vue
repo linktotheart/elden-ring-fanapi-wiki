@@ -1,3 +1,5 @@
 <template>
-  <div>Asd</div>
+  <div>
+    
+  </div>
 </template>
