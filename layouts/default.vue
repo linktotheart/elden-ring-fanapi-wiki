@@ -1,9 +1,9 @@
 <template>
-  <main class="w-100 flex flex-col h-screen overflow-hidden bg-base-200">
-    <Navbar />
-    <main class="flex-grow bg-base-200 p-5">
+  <main class="w-100 flex flex-col min-h-screen bg-base-100 to-base-300">
+    <AppNavbar />
+    <article class="flex-grow p-5">
       <slot />
-    </main>
+    </article>
     <AppFooter />
   </main>
 </template>

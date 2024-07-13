@@ -7,7 +7,10 @@
   },
   "dependencies": {
     "@nuxtjs/tailwindcss": "^6",
-    "daisyui": "^3",
-    "nuxt": "^3"
+    "axios": "^1.7.2",
+    "daisyui": "^4.12.10",
+    "nuxt": "^3",
+    "vite-plugin-require": "^1.2.14",
+    "vuex": "^4.0.2"
   }
 }
