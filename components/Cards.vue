@@ -55,7 +55,7 @@ export default {
   },
   computed: {
     shortDescription() {
-      return this.description.substring(0, 100);
+      return this.description?.substring(0, 100) || 'No description found';
     },
   },
 };

@@ -1,48 +1,129 @@
 <template>
   <section>
-	<container>
-		<h1 class="text-3xl mb-4 mt-4 font-bold text-center font-serif">Search results for "{{ search }}"</h1>
-	</container>
+    <container>
+      <h1 class="text-3xl mb-4 mt-4 font-bold text-center font-serif">
+        Search results for "{{ search }}"
+      </h1>
+    </container>
 
-	<div class="divider">search results...</div>
+    <div class="divider my-8">search results...</div>
+
+    <div
+      class="grid grid-cols-1 gap-4 lg:grid-cols-3 md:grid-cols-2"
+      v-if="!isLoading && results && results.length > 0"
+    >
+      <Cards
+        v-for="art in results"
+        :key="art.id"
+        :name="art.name"
+        :description="art.description"
+        :image="art.image || 'https://via.placeholder.com/300'"
+      />
+    </div>
+
+    <div
+      class="grid grid-cols-1 gap-5 lg:grid-cols-3 md:grid-cols-2"
+      v-if="isLoading"
+    >
+      <Skeleton v-for="n in 9" :key="n" />
+    </div>
+    <div v-else-if="!isLoading && results.length === 0">
+      <div class="text-center text-2xl font-bold mt-10">
+        No results found for "{{ search }}"
+      </div>
+    </div>
+
+    <!-- <div class="pt-10 flex justify-center">
+      <Pagination
+        :page="page"
+        :limit="limit"
+        :total="totalResults"
+        @change="paginate"
+        :disabled="isLoading || results.length === 0"
+        :show-details="false"
+      />
+    </div> -->
   </section>
 </template>
 
-<!-- <script>
+<script>
+import axios from '@/axios';
+
 export default {
-	  name: 'Search',
+  name: 'Search',
   data() {
-	return {
-	  search: '',
-	  results: [],
-	};
+    return {
+      results: [],
+      isLoading: false,
+      page: parseInt(this.$route.query.page) || 1,
+      limit: 50,
+      totalResults: 0,
+    };
+  },
+  computed: {
+    search() {
+      return this.$route.query.q || '';
+    },
   },
   methods: {
-	searchFor() {
-	  console.log('Searching for:', this.search);
-	  this.results = [];
-	  this.$router.push({ name: 'search', query: { q: this.search } });
-	},
+    searchFor() {
+      this.results = [];
+      this.$router.push({ name: 'search', query: { q: this.search } });
+    },
+    async getResults() {
+      try {
+		if (this.search === '') {
+			return
+		}
+        this.isLoading = true;
+        const { data } = await axios.get(`/items`, {
+          params: {
+            page: this.page - 1,
+            limit: this.limit,
+            name: this.search,
+          },
+        });
+        this.results = data.data;
+        this.totalResults = data.total;
+      } catch (error) {
+        console.error(error);
+      } finally {
+        this.isLoading = false;
+      }
+    },
+    async paginate(page) {
+      this.$router.push({
+        query: {
+          page,
+        },
+      });
+      this.page = page;
+      await this.getResults();
+    },
+  },
+  watch: {
+    search() {
+      this.getResults();
+    },
   },
   created() {
-	this.search = this.$route.query.q;
-	console.log('Searching for:', this.search);
+    this.getResults();
   },
 };
-</script> -->
-<script setup>
-  const search = ref('');
-  const results = ref([]);
-  const route = useRoute();
-  const handleSearch = () => {};
+</script>
+<!-- <script setup>
+const search = ref('');
+const results = ref([]);
+const route = useRoute();
+const handleSearch = () => {};
 
-  search.value = route.query.q || '';
+search.value = route.query.q || '';
 
 //   return {
 //     search,
 //     results,
 //     handleSearch,
 //   };
-</script>
+</script> -->
 
 <style></style>

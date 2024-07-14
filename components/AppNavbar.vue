@@ -7,9 +7,10 @@
         <input
           v-model="search"
           type="text"
+          @keypress="handlekeyPress"
           ref="search"
           class="input input-ghost px-8 w-full focus:bg-base-300 focus:outline-none focus:border-0 placeholder:text-base-content placeholder:text-opacity-50"
-          placeholder="Search..."
+          placeholder="Type and Hit Enter to Search..."
         />
         <button class="btn btn-ghost btn-circle" @click="handleSearch">
           <svg
@@ -131,6 +132,11 @@ export default {
         this.isSearchOpen = false;
       } else {
         this.$router.push({ name: 'search', query: { q: this.search } });
+      }
+    },
+    handlekeyPress(event) {
+      if (event.key === 'Enter') {
+        this.handleSearch();
       }
     },
   },

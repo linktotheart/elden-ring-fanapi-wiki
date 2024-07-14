@@ -1,17 +1,20 @@
 <template>
   <div class="join" :class="{ 'pointer-events-none': disabled }">
     <button
-      :disabled="isLoading || firstPageDisabled"
+      :disabled="firstPageDisabled"
       class="join-item btn"
       @click="handlePagination(page - 1)"
     >
       «
     </button>
-    <span class="join-item pointer-events-none select-none btn">
+    <span class="join-item pointer-events-none select-none btn" v-if="showDetails">
       Showing results {{ getShowingPageRemainingLimit }}
     </span>
+    <span class="join-item pointer-events-none select-none btn" v-else>
+      Page {{ page }}
+    </span>
     <button
-      :disabled="isLoading || lastPageDisabled"
+      :disabled="lastPageDisabled"
       class="join-item btn"
       @click="handlePagination(page + 1)"
     >
@@ -40,13 +43,17 @@ export default {
       type: Boolean,
       default: false,
     },
+    showDetails: {
+      type: Boolean,
+      default: true,
+    },
   },
   computed: {
     firstPageDisabled() {
-      return parseInt(this.page) === 1;
+      return parseInt(this.page) === 1 || this.disabled;
     },
     lastPageDisabled() {
-      return this.total <= this.page * this.limit;
+      return this.total <= this.page * this.limit || this.disabled;
     },
     getShowingPageRemainingLimit() {
       const { page, limit, total } = this;

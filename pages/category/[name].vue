@@ -78,41 +78,17 @@ export default {
       return this.$route.params.name;
     },
     getDescription() {
-      return categories.find((cat) => cat.name === this.category).description;
+      const desscription = categories.find(
+        (cat) => cat.name === this.category,
+      ).description;
+      return desscription || 'No description found';
     },
   },
   methods: {
-    async getArticles() {
-      try {
-        this.isLoading = true;
-        const { data } = await axios.get(`/${this.category}`, {
-          params: {
-            page: this.page - 1,
-            limit: this.limit * this.page,
-          },
-        });
-        this.articles = data.data;
-        // scroll to top
-        window.scrollTo(0, 0);
-        this.totalArticles = data.total;
-      } catch (error) {
-        console.error(error);
-      } finally {
-        this.isLoading = false;
-      }
-    },
-    async paginate(page) {
-      this.$router.push({
-        query: {
-          page,
-        },
-      });
-      this.page = page;
-      await this.getArticles();
-    },
+    
   },
   async created() {
-	this.page = this.$route.query.page || 1;
+    this.page = this.$route.query.page || 1;
     await this.getArticles();
   },
 };
