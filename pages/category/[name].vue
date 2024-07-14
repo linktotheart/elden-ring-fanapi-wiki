@@ -85,7 +85,32 @@ export default {
     },
   },
   methods: {
-    
+    async getArticles() {
+      try {
+        this.isLoading = true;
+        const { data } = await axios.get(`/${this.category}`, {
+          params: {
+            page: this.page - 1,
+            limit: this.limit,
+          },
+        });
+        this.articles = data.data;
+        this.totalArticles = data.total;
+      } catch (error) {
+        console.error(error);
+      } finally {
+        this.isLoading = false;
+      }
+    },
+    async paginate(page) {
+      this.$router.push({
+        query: {
+          page,
+        },
+      });
+      this.page = page;
+      await this.getArticles();
+    },
   },
   async created() {
     this.page = this.$route.query.page || 1;

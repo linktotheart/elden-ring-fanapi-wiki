@@ -4,36 +4,35 @@
       <h1 class="text-3xl mb-4 mt-4 font-bold text-center font-serif">
         Search results for "{{ search }}"
       </h1>
-    </container>
 
-    <div class="divider my-8">search results...</div>
+      <div class="divider my-8">search results...</div>
 
-    <div
-      class="grid grid-cols-1 gap-4 lg:grid-cols-3 md:grid-cols-2"
-      v-if="!isLoading && results && results.length > 0"
-    >
-      <Cards
-        v-for="art in results"
-        :key="art.id"
-        :name="art.name"
-        :description="art.description"
-        :image="art.image || 'https://via.placeholder.com/300'"
-      />
-    </div>
-
-    <div
-      class="grid grid-cols-1 gap-5 lg:grid-cols-3 md:grid-cols-2"
-      v-if="isLoading"
-    >
-      <Skeleton v-for="n in 9" :key="n" />
-    </div>
-    <div v-else-if="!isLoading && results.length === 0">
-      <div class="text-center text-2xl font-bold mt-10">
-        No results found for "{{ search }}"
+      <div
+        class="grid grid-cols-1 gap-4 lg:grid-cols-3 md:grid-cols-2"
+        v-if="!isLoading && results && results.length > 0"
+      >
+        <Cards
+          v-for="art in results"
+          :key="art.id"
+          :name="art.name"
+          :description="art.description"
+          :image="art.image || 'https://via.placeholder.com/300'"
+        />
       </div>
-    </div>
 
-    <!-- <div class="pt-10 flex justify-center">
+      <div
+        class="grid grid-cols-1 gap-5 lg:grid-cols-3 md:grid-cols-2"
+        v-if="isLoading"
+      >
+        <Skeleton v-for="n in 9" :key="n" />
+      </div>
+      <div v-else-if="!isLoading && results.length === 0">
+        <div class="text-center text-2xl font-bold mt-10">
+          No results found for "{{ search }}"
+        </div>
+      </div>
+
+      <!-- <div class="pt-10 flex justify-center">
       <Pagination
         :page="page"
         :limit="limit"
@@ -43,6 +42,7 @@
         :show-details="false"
       />
     </div> -->
+    </container>
   </section>
 </template>
 
@@ -72,9 +72,9 @@ export default {
     },
     async getResults() {
       try {
-		if (this.search === '') {
-			return
-		}
+        if (this.search === '') {
+          return;
+        }
         this.isLoading = true;
         const { data } = await axios.get(`/items`, {
           params: {
