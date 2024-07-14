@@ -1,8 +1,22 @@
 <template>
-  <div class="join" :class="{'pointer-events-none': disabled}">
-    <button :disabled="isLoading" class="join-item btn" @click="handlePagination(page-1)">«</button>
-    <button :disabled="isLoading" class="join-item pointer-events-none btn">Page {{ page }}</button>
-    <button :disabled="isLoading" class="join-item btn"  @click="handlePagination(page+1)">»</button>
+  <div class="join" :class="{ 'pointer-events-none': disabled }">
+    <button
+      :disabled="isLoading || firstPageDisabled"
+      class="join-item btn"
+      @click="handlePagination(page - 1)"
+    >
+      «
+    </button>
+    <span class="join-item pointer-events-none select-none btn">
+      Showing results {{ getShowingPageRemainingLimit }}
+    </span>
+    <button
+      :disabled="isLoading || lastPageDisabled"
+      class="join-item btn"
+      @click="handlePagination(page + 1)"
+    >
+      »
+    </button>
   </div>
 </template>
 
@@ -18,19 +32,32 @@ export default {
       type: Number,
       required: true,
     },
-    totalArticles: {
+    total: {
       type: Number,
       required: true,
     },
-	disabled: {
-	  type: Boolean,
-	  default: false,
-	},
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  computed: {
+    firstPageDisabled() {
+      return parseInt(this.page) === 1;
+    },
+    lastPageDisabled() {
+      return this.total <= this.page * this.limit;
+    },
+    getShowingPageRemainingLimit() {
+      const { page, limit, total } = this;
+      const currentPage = page * limit > total ? total : page * limit;
+      return `${(page - 1) * limit + 1} - ${currentPage} of ${total}`;
+    },
   },
   methods: {
-	handlePagination(page) {
-	  this.$emit('change', page);
-	},
+    handlePagination(page) {
+      this.$emit('change', page);
+    },
   },
 };
 </script>

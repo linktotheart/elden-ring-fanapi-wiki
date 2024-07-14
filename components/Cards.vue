@@ -2,7 +2,7 @@
   <div
     class="card bg-base-200 to-base-300 from-base-200 bg-gradient-to-br hover:bg-gradient-to-tr transition-all cursor-pointer hover:shadow-lg group text-base-200-content shadow"
   >
-    <figure class="px-5 pt-8">
+    <figure class="px-5 pt-8 max-h-[30rem] overflow-hidden">
       <img :src="image" :alt="name" class="rounded min-h-44" />
     </figure>
     <div class="card-body items-center text-center">

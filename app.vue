@@ -6,7 +6,6 @@
 <script setup>
 import '@/assets/style/style.css';
 import { categories } from '@/data/categories';
-
-const cats = useState('categories', () => [...categories]);
+useState('categories', () => [...categories]);
 
 </script>

@@ -37,7 +37,7 @@
         <Pagination
           :page="page"
           :limit="limit"
-          :totalArticles="totalArticles"
+          :total="totalArticles"
           @change="paginate"
           :disabled="isLoading"
         />
@@ -52,10 +52,22 @@ import { categories } from '@/data/categories';
 
 export default {
   name: 'NameCategory',
+  head() {
+    return {
+      title: `${this.category} | Page ${this.page}`,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.getDescription,
+        },
+      ],
+    };
+  },
   data() {
     return {
       articles: [],
-      page: 1,
+      page: 0,
       limit: 30,
       totalArticles: 0,
       isLoading: false,
@@ -75,8 +87,8 @@ export default {
         this.isLoading = true;
         const { data } = await axios.get(`/${this.category}`, {
           params: {
-            _page: this.page,
-            _limit: this.limit,
+            page: this.page - 1,
+            limit: this.limit * this.page,
           },
         });
         this.articles = data.data;

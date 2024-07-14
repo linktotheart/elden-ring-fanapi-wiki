@@ -1,9 +1,9 @@
 <template>
   <div
-    class="card bg-base-100 rounded-xl overflow-hidden image-full shadow-lg hover:shadow-xl duration-300 transition-shadow"
+    class="card bg-base-100 rounded-xl lg:h-[20rem] overflow-hidden image-full shadow-lg hover:shadow-xl duration-300 transition-shadow"
   >
     <figure>
-      <img src="@/assets/images/elden-ring.jpg" alt="background" />
+      <img src="@/assets/images/elden-ring.jpg" class="h-auto w-full object-center" alt="background" />
     </figure>
     <div class="card-body grid place-content-center">
       <h2 class="font-serif text-3xl mb-4 font-bold text-center">
@@ -17,8 +17,8 @@
   </div>
 </template>
 
-<script>
-export default {};
+<script setup>
+const top = ref(0)
 </script>
 
 <style></style>

@@ -1,14 +1,14 @@
 <template>
-  <div class="navbar bg-base-200 top-0">
+  <div class="navbar bg-base-200 sticky z-50 backdrop-opacity-50 top-0">
     <template v-if="isSearchOpen">
       <div
-        class="flex overflow-hidden focus-within:bg-neutral-content w-full rounded-full border- border"
+        class="flex overflow-hidden focus-within:bg-base-300 w-full rounded-full border-primary-content bg-base-200 border"
       >
         <input
           v-model="search"
           type="text"
           ref="search"
-          class="input input-ghost px-8 w-full focus:bg-neutral-content focus:outline-none focus:border-0 placeholder:text-base-content placeholder:text-opacity-50"
+          class="input input-ghost px-8 w-full focus:bg-base-300 focus:outline-none focus:border-0 placeholder:text-base-content placeholder:text-opacity-50"
           placeholder="Search..."
         />
         <button class="btn btn-ghost btn-circle" @click="handleSearch">
