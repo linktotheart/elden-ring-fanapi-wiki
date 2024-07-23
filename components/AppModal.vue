@@ -8,8 +8,8 @@
           {{ details?.name }}
         </h3>
 
-        <button class="btn btn-circle ml-auto btn-ghost">
-          <Icon name="mdi:close" @click="$emit('close')" />
+        <button class="btn btn-circle ml-auto btn-ghost" @click="$emit('close')">
+          <Icon name="mdi:close"  />
         </button>
       </div>
       <template v-if="open">
@@ -458,6 +458,10 @@
           </div>
         </div>
       </template>
+
+      <form method="dialog" class="modal-backdrop">
+          <button class="sr-only">close</button>
+      </form>
     </div>
   </dialog>
 </template>

@@ -1,6 +1,7 @@
 <template>
   <div
     class="card bg-neutral pb-0 items-center text-neutral-content hover:bg-gradient-to-tr transition-all cursor-pointer hover:shadow-md group shadow"
+    @click.stop="$emit('open-modal')"
   >
     <figure
       class="px-5 pt-6 flex-grow max-h-[30rem] transition-transform group-hover:scale-105 translate overflow-hidden"
@@ -19,7 +20,6 @@
       <div class="card-actions w-full justify-end relative -bottom-1 pb-0">
         <button
           class="btn btn-ghost opacity-0 group-hover:opacity-100 translate-y-10 group-hover:translate-y-0 btn-circle"
-          @click="$emit('open-modal')"
         >
           <Icon name="mdi:arrow-right" />
         </button>
