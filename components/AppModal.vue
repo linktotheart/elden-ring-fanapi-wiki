@@ -1,6 +1,6 @@
 <template>
   <dialog id="modal_details" class="modal">
-    <div class="modal-box relative md:max-w-5xl lg:max-w-4xl pt-0">
+    <div class="modal-box relative md:max-w-5xl lg:max-w-5xl xl:max-w-6xl pt-0">
       <div
         class="flex mb-4 border-b py-2 sticky top-0 z-10 bg-base-100 -mx-3 pl-4 border-neutral-content border-opacity-10"
       >
@@ -14,7 +14,7 @@
       </div>
       <template v-if="open">
         <div class="grid gap-4 grid-cols-1 relative md:grid-cols-2">
-          <div class="flex flex-col self-start sticky top-0">
+          <div class="flex flex-col self-start sticky top-[5rem]">
             <figure
               class="p-4 min-h-80 grid content-center bg-base-200 rounded-xl mb-4 self-start w-full text-center"
             >
@@ -24,65 +24,147 @@
                 class="rounded-md shadow-xl mx-auto max-w-full"
               />
             </figure>
-            <div class="flex flex-wrap gap-2">
-              <div class="text-sm justify-start">
+            <div class="flex flex-wrap gap-y-3 gap-x-4">
+              <div class="text-sm justify-start flex item-center">
                 Category:
-                <span class="badge ml-2 px-3 badge-outline capitalize">{{
-                  getCategory(details)
-                }}</span>
+                <span class="badge ml-2 px-3 badge-neutral capitalize">
+                  <Icon name="mdi:tag" class="mr-1 text-sm w-4 h-4" />
+                  {{ getCategory(details) }}
+                </span>
               </div>
-              <div class="text-sm justify-start" v-if="details.type">
+              <div
+                class="text-sm justify-start flex item-center"
+                v-if="details.type"
+              >
                 Type:
-                <span class="badge ml-2 px-3 badge-outline">{{
-                  details.type
-                }}</span>
-              </div>
-
-              <div class="text-sm justify-start" v-if="details.weight">
-                Weight:
-                <span class="badge ml-2 px-3 badge-outline">{{
-                  details.weight
-                }}</span>
+                <span class="badge ml-2 px-3 badge-neutral">
+                  <Icon
+                    name="mdi:information-outline"
+                    class="mr-1 text-sm w-4 h-4"
+                  />
+                  {{ details.type }}
+                </span>
               </div>
 
               <div
-                class="text-sm justify-start"
+                class="text-sm justify-start flex item-center"
+                v-if="details.weight"
+              >
+                Weight:
+                <span class="badge ml-2 px-3 badge-warning">
+                  <Icon
+                    name="mdi:weight-kilogram"
+                    class="mr-1 text-sm w-4 h-4"
+                  />
+                  {{ details.weight }}
+                </span>
+              </div>
+
+              <div
+                class="text-sm justify-start flex item-center"
                 v-if="details && details.region"
               >
+                Region:
+                <span class="badge ml-2 px-3 badge-info">
+                  <Icon name="mdi:map-marker" class="mr-1 text-sm w-4 h-4" />
+                  {{ details.region }}
+                </span>
+              </div>
+
+              <!-- location  -->
+              <div
+                class="text-sm justify-start flex item-center"
+                v-if="details && details.location"
+              >
                 Location:
-                <span class="badge ml-2 px-3 badge-outline">{{
-                  details.region
-                }}</span>
+                <span class="badge ml-2 px-3 badge-info">
+                  <Icon name="mdi:earth" class="mr-1 text-sm w-4 h-4" />
+                  {{ details.location }}
+                </span>
               </div>
 
               <!-- affinity  -->
               <div
-                class="text-sm justify-start"
+                class="text-sm justify-start flex item-center"
                 v-if="details && details.affinity"
               >
                 Affinity:
-                <span class="badge ml-2 px-3 badge-outline">{{
-                  details.affinity
-                }}</span>
+                <span class="badge ml-2 px-3 badge-info">
+                  <Icon name="mdi:star" class="mr-1 text-sm w-4 h-4" />
+                  {{ details.affinity }}
+                </span>
               </div>
 
               <!-- skill  -->
               <div
-                class="text-sm justify-start"
+                class="text-sm justify-start flex item-center"
                 v-if="details && details.skill"
               >
                 Skill:
-                <span class="badge ml-2 px-3 badge-outline">{{
-                  details.skill
-                }}</span>
+                <span class="badge ml-2 px-3 badge-info">
+                  <Icon name="mdi:lightbulb" class="mr-1 text-sm w-4 h-4" />
+                  {{ details.skill }}
+                </span>
               </div>
 
               <!-- role  -->
-              <div class="text-sm justify-start" v-if="details && details.role">
+              <div
+                class="text-sm justify-start flex item-center"
+                v-if="details && details.role"
+              >
                 Role:
-                <span class="badge ml-2 px-3 badge-outline">{{
-                  details.role
-                }}</span>
+                <span class="badge ml-2 px-3 badge-info">
+                  <Icon name="mdi:account-group" class="mr-1 text-sm w-4 h-4" />
+                  {{ details.role }}
+                </span>
+              </div>
+
+              <!-- < fpCost  -->
+              <div
+                class="text-sm justify-start flex item-center"
+                v-if="details && details.fpCost"
+              >
+                FP Cost:
+                <span class="badge ml-2 px-3 badge-info">
+                  <Icon name="mdi:flask-outline" class="mr-1 text-sm w-4 h-4" />
+                  {{ details.fpCost }}
+                </span>
+              </div>
+
+              <!-- < fpCost  -->
+              <div
+                class="text-sm justify-start flex item-center"
+                v-if="details && details.cost"
+              >
+                Cost:
+                <span class="badge ml-2 px-3 badge-info">
+                  <Icon name="mdi:flask-outline" class="mr-1 text-sm w-4 h-4" />
+                  {{ details.cost }}
+                </span>
+              </div>
+
+              <!-- slots  -->
+              <div
+                class="text-sm justify-start flex item-center"
+                v-if="details && details.slots"
+              >
+                Slots:
+                <span class="badge ml-2 px-3 badge-success">
+                  <Icon name="mdi:flask-round-bottom-empty-outline" class="mr-1 text-sm w-4 h-4" />
+                  {{ details.slots }}
+                </span>
+              </div>
+
+              <!-- < healthPoints -->
+              <div
+                class="text-sm justify-start flex item-center"
+                v-if="details && details.healthPoints"
+              >
+                Health Points:
+                <span class="badge ml-2 px-3 badge-error">
+                  <Icon name="mdi:heart" class="mr-1 text-sm w-4 h-4" />
+                  {{ details.healthPoints }}
+                </span>
               </div>
             </div>
           </div>
@@ -108,6 +190,13 @@
               <h6 class="font-bold mb-0.5 text-md">Effects</h6>
               <p class="tracking-wide">
                 {{ details.effects }}
+              </p>
+            </div>
+
+            <div class="quote mt-4" v-if="details.effect">
+              <h6 class="font-bold mb-0.5 text-md">Effect</h6>
+              <p class="tracking-wide">
+                {{ details.effect }}
               </p>
             </div>
 
