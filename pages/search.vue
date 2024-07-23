@@ -5,7 +5,9 @@
         Search results for "{{ search }}"
       </h1>
 
-      <div class="divider my-8">search results...</div>
+      <div class="divider my-8" v-if="results.length > 0">
+        {{ results.length }} results found...
+      </div>
 
       <div
         class="grid grid-cols-1 gap-4 lg:grid-cols-3 md:grid-cols-2"
@@ -31,17 +33,6 @@
           No results found for "{{ search }}"
         </div>
       </div>
-
-      <!-- <div class="pt-10 flex justify-center">
-      <Pagination
-        :page="page"
-        :limit="limit"
-        :total="totalResults"
-        @change="paginate"
-        :disabled="isLoading || results.length === 0"
-        :show-details="false"
-      />
-    </div> -->
     </container>
   </section>
 </template>

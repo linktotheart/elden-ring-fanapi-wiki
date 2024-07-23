@@ -1,113 +1,49 @@
 <template>
-  <div class="navbar bg-base-200 sticky z-50 backdrop-opacity-50 top-0">
+  <div
+    class="navbar bg-base-300 text-base-content sticky z-50 h-[66px] px-5 backdrop-opacity-50 top-0"
+  >
     <template v-if="isSearchOpen">
       <div
-        class="flex overflow-hidden focus-within:bg-base-300 w-full rounded-full border-primary-content bg-base-200 border"
+        class="flex overflow-hidden focus-within:bg- w-full rounded-full border-primary-content bg-base-200 border"
       >
         <input
           v-model="search"
-          type="text"
+          type="search"
           @keypress="handlekeyPress"
           ref="search"
-          class="input input-ghost px-8 w-full focus:bg-base-300 focus:outline-none focus:border-0 placeholder:text-base-content placeholder:text-opacity-50"
+          class="input input-ghost px-8 w-full focus:bg- focus:outline-none focus:border-0 placeholder:text-base-content placeholder:text-opacity-50"
           placeholder="Type and Hit Enter to Search..."
         />
         <button class="btn btn-ghost btn-circle" @click="handleSearch">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M6 18L18 6M6 6l12 12"
-              v-if="search.length === 0"
-            />
-            <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                v-else
-              />
-          </svg>
+          <Icon name="mdi:magnify" v-if="search !== ''" />
+          <Icon name="mdi:close" v-else />
         </button>
       </div>
     </template>
     <template v-else>
       <div class="navbar-start border border-transparent">
-        <div class="dropdown">
-          <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h7"
-              />
-            </svg>
-          </div>
-          <ul
-            tabindex="0"
-            class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-          >
-            <li><a>Homepage</a></li>
-            <li><a>Portfolio</a></li>
-            <li><a>About</a></li>
-          </ul>
-        </div>
+        <router-link
+          to="/"
+          tabindex="0"
+          role="button"
+          class="btn btn-ghost btn-circle"
+          v-if="!isRouteHome"
+        >
+          <span class="btn-btn-ghost sr-only">Go Back</span>
+          <Icon name="mdi:arrow-left" />
+        </router-link>
       </div>
       <div class="navbar-center">
-        <router-link class="btn btn-ghost font-serif text-lg" to="/">Elden Ring</router-link>
+        <router-link class="btn btn-ghost font-serif text-lg" to="/">Elden Ring Wiki</router-link>
       </div>
       <div class="navbar-end">
         <button class="btn btn-ghost btn-circle" @click="toggleSearch">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            />
-          </svg>
+          <Icon name="mdi:magnify" />
         </button>
       </div>
     </template>
   </div>
 </template>
-<!-- <script>
-export default {
-  data() {
-    return {
-      search: '',
-      isSearchOpen: false,
-    };
-  },
-  methods: {
-    toggleSearch() {
-      console.log('Search Toggled');
-      this.isSearchOpen = !this.isSearchOpen;
-    },
-  },
-};
-</script> -->
-
 <script>
 export default {
   name: 'AppNavbar',
@@ -116,6 +52,11 @@ export default {
       search: '',
       isSearchOpen: false,
     };
+  },
+  computed: {
+    isRouteHome() {
+      return this.$route.name === 'index';
+    },
   },
   methods: {
     toggleSearch() {

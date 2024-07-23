@@ -22,7 +22,8 @@
           :key="art.id"
           :name="art.name"
           :description="art.description"
-          :image="art.image"
+          :image="art?.image || 'https://via.placeholder.com/300'"
+          @open-modal="handleOpenModal(art)"
         />
       </div>
 
@@ -33,7 +34,7 @@
         <Skeleton v-for="n in 9" :key="n" />
       </div>
 
-      <div class="pt-10 flex justify-center">
+      <div class="pt-10 md:pt-14 flex justify-center">
         <Pagination
           :page="page"
           :limit="limit"
@@ -43,6 +44,7 @@
         />
       </div>
     </container>
+    <AppModal title="Details" ref="details-modal" :details="selectedData" :open="isModalOpen" @close="closeModal" />
   </section>
 </template>
 
@@ -71,6 +73,8 @@ export default {
       limit: 30,
       totalArticles: 0,
       isLoading: false,
+      selectedData: null,
+      isModalOpen: false,
     };
   },
   computed: {
@@ -110,6 +114,16 @@ export default {
       });
       this.page = page;
       await this.getArticles();
+    },
+    handleOpenModal(data) {
+      this.isModalOpen = true;
+      this.selectedData = data;
+      if (this.$refs['details-modal']) this.$refs['details-modal'].$el.showModal();
+    },
+    closeModal() {
+      this.isModalOpen = false;
+      this.selectedData = null;
+      if (this.$refs['details-modal']) this.$refs['details-modal'].$el.close();
     },
   },
   async created() {

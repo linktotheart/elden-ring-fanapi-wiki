@@ -1,35 +1,27 @@
 <template>
   <div
-    class="card bg-base-200 to-base-300 from-base-200 bg-gradient-to-br hover:bg-gradient-to-tr transition-all cursor-pointer hover:shadow-lg group text-base-200-content shadow"
+    class="card bg-neutral pb-0 items-center text-neutral-content hover:bg-gradient-to-tr transition-all cursor-pointer hover:shadow-md group shadow"
   >
-    <figure class="px-5 pt-8 max-h-[30rem] overflow-hidden">
-      <img :src="image" :alt="name" class="rounded min-h-44" />
+    <figure
+      class="px-5 pt-6 flex-grow max-h-[30rem] transition-transform group-hover:scale-105 translate overflow-hidden"
+    >
+      <img :src="image" :alt="name" class="rounded-lg shadow-lg min-h-44" />
     </figure>
-    <div class="card-body items-center text-center">
+    <div class="card-body pb-4 px-4 md:px-6 items-center w-full text-center">
       <h2 class="card-title font-bold font-serif">
         {{ name }}
       </h2>
       <div class="tooltip mb-2" :data-tip="description">
-        <p>{{ shortDescription }}...</p>
+        <p>
+          {{ shortDescription }} {{ description?.length > 120 ? '...' : '' }}
+        </p>
       </div>
       <div class="card-actions w-full justify-end relative -bottom-1 pb-0">
         <button
-          class="btn btn-ghost opacity-0 group-hover:opacity-100 btn-circle"
+          class="btn btn-ghost opacity-0 group-hover:opacity-100 translate-y-10 group-hover:translate-y-0 btn-circle"
+          @click="$emit('open-modal')"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            stroke-width="2"
-            stroke="currentColor"
-            fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <polyline points="9 6 15 12 9 18" />
-          </svg>
+          <Icon name="mdi:arrow-right" />
         </button>
       </div>
     </div>
@@ -55,7 +47,7 @@ export default {
   },
   computed: {
     shortDescription() {
-      return this.description?.substring(0, 100) || 'No description found';
+      return this.description?.substring(0, 120) || 'No description found';
     },
   },
 };
