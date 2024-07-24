@@ -1,31 +1,22 @@
 <template>
-  <div class="card group bg-base-100 image-full shadow hover:shadow-xl duration-300 transition-shadow rounded-2xl">
+  <div
+    class="card group bg-base-100 image-full shadow hover:shadow-xl duration-300 transition-shadow rounded-2xl"
+  >
     <figure>
-      <img :src="imageUrl" alt="Shoes" />
+      <img :src="getImagesUrl()" :alt="title" />
     </figure>
-    <div class="card-body">
-      <h2 class="card-title font-serif text-2xl">
+    <div class="card-body p-3 pt-6 md:p-6">
+      <h2 class="card-title font-serif text-lg sm:text-xl md:text-2xl">
         {{ title }}
       </h2>
-      <p class="mb-4">
+      <p class="mb-0 text-sm md:text-base">
         {{ description }}
       </p>
-      <div class="card-actions opacity-0 group-hover:opacity-100 transition-opacity justify-end">
-        <button class="btn  btn-circle" @click="$emit('click')">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M9 5l7 7-7 7"
-            />
-          </svg>
+      <div
+        class="card-actions opacity-0 group-hover:opacity-100 duration-300 transition-opacity justify-end"
+      >
+        <button class="btn max-[w3rem]:btn-sm  btn-circle" @click="$emit('click')">
+          <Icon name="mdi:arrow-right" class="text-current text-base" />
         </button>
       </div>
     </div>
@@ -46,7 +37,12 @@ export default {
     },
     imageUrl: {
       type: String,
-      default: require('@/assets/images/elden-ring.jpg'),
+      default: require('@/assets/images/home/0LEqvzR.jpg'),
+    },
+  },
+  methods: {
+    getImagesUrl() {
+      return `./images/home/${this.imageUrl}`;
     },
   },
 };

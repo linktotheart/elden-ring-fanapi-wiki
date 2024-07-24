@@ -1,20 +1,23 @@
 <template>
-  <dialog id="modal_details" class="modal">
+  <dialog id="modal_details" class="modal backdrop-blur">
     <div class="modal-box relative md:max-w-5xl lg:max-w-5xl xl:max-w-6xl pt-0">
       <div
         class="flex mb-4 border-b py-2 sticky top-0 z-10 bg-base-100 -mx-3 pl-4 border-neutral-content border-opacity-10"
       >
-        <h3 class="text-xl font-bold flex items-center" v-if="open">
+        <h3 class="text-lg md:text-xl font-bold flex items-center" v-if="open">
           {{ details?.name }}
         </h3>
 
-        <button class="btn btn-circle ml-auto btn-ghost" @click="$emit('close')">
-          <Icon name="mdi:close"  />
+        <button
+          class="btn btn-circle ml-auto btn-ghost"
+          @click="$emit('close')"
+        >
+          <Icon name="mdi:close" />
         </button>
       </div>
       <template v-if="open">
         <div class="grid gap-4 grid-cols-1 relative md:grid-cols-2">
-          <div class="flex flex-col self-start sticky top-[5rem]">
+          <div class="flex flex-col self-start md:sticky top-[5rem]">
             <figure
               class="p-4 min-h-80 grid content-center bg-base-200 rounded-xl mb-4 self-start w-full text-center"
             >
@@ -71,17 +74,6 @@
                 </span>
               </div>
 
-              <!-- location  -->
-              <div
-                class="text-sm justify-start flex item-center"
-                v-if="details && details.location"
-              >
-                Location:
-                <span class="badge ml-2 px-3 badge-info">
-                  <Icon name="mdi:earth" class="mr-1 text-sm w-4 h-4" />
-                  {{ details.location }}
-                </span>
-              </div>
 
               <!-- affinity  -->
               <div
@@ -150,7 +142,10 @@
               >
                 Slots:
                 <span class="badge ml-2 px-3 badge-success">
-                  <Icon name="mdi:flask-round-bottom-empty-outline" class="mr-1 text-sm w-4 h-4" />
+                  <Icon
+                    name="mdi:flask-round-bottom-empty-outline"
+                    class="mr-1 text-sm w-4 h-4"
+                  />
                   {{ details.slots }}
                 </span>
               </div>
@@ -458,10 +453,6 @@
           </div>
         </div>
       </template>
-
-      <form method="dialog" class="modal-backdrop">
-          <button class="sr-only">close</button>
-      </form>
     </div>
   </dialog>
 </template>

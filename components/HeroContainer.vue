@@ -1,6 +1,6 @@
 <template>
   <div
-    class="card bg-base-100 rounded-xl lg:h-[20rem] overflow-hidden image-full shadow-lg hover:shadow-xl duration-300 transition-shadow"
+    class="card bg-base-100 rounded-3xl lg:h-[20rem] overflow-hidden image-full shadow hover:shadow-xl duration-300 transition-shadow"
   >
     <figure>
       <img src="@/assets/images/elden-ring.jpg" class="h-auto w-full object-center" alt="background" />

@@ -44,7 +44,13 @@
         />
       </div>
     </container>
-    <AppModal title="Details" ref="details-modal" :details="selectedData" :open="isModalOpen" @close="closeModal" />
+    <AppModal
+      title="Details"
+      ref="details-modal"
+      :details="selectedData"
+      :open="isModalOpen"
+      @close="closeModal"
+    />
   </section>
 </template>
 
@@ -118,7 +124,8 @@ export default {
     handleOpenModal(data) {
       this.isModalOpen = true;
       this.selectedData = data;
-      if (this.$refs['details-modal']) this.$refs['details-modal'].$el.showModal();
+      if (this.$refs['details-modal'])
+        this.$refs['details-modal'].$el.showModal();
     },
     closeModal() {
       this.isModalOpen = false;
