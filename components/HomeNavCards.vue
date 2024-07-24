@@ -1,6 +1,6 @@
 <template>
   <div
-    class="card group bg-base-100 image-full shadow hover:shadow-xl duration-300 transition-shadow rounded-2xl"
+    class="card group image-full shadow hover:shadow-xl duration-300 transition-shadow rounded-2xl"
   >
     <figure>
       <img :src="getImagesUrl()" :alt="title" />
@@ -15,8 +15,15 @@
       <div
         class="card-actions opacity-0 group-hover:opacity-100 duration-300 transition-opacity justify-end"
       >
-        <button class="btn max-[w3rem]:btn-sm  btn-circle" @click="$emit('click')">
-          <Icon name="mdi:arrow-right" class="text-current text-base" />
+        <button
+          class="btn max-[w3rem]:btn-sm btn-circle"
+          @click="$emit('click')"
+        >
+          <Icon
+            name="mdi:arrow-right"
+            size="18px"
+            class="text-current text-base"
+          />
         </button>
       </div>
     </div>
@@ -48,4 +55,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.card.image-full:before {
+  opacity: 0.57;
+}
+.card {
+  text-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
+}
+</style>

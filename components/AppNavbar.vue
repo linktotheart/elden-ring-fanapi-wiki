@@ -37,6 +37,15 @@
         <router-link class="btn btn-ghost font-serif text-lg" to="/">Elden Ring Wiki</router-link>
       </div>
       <div class="navbar-end">
+        <label class="swap btn btn-circle btn-ghost swap-rotate mr-3">
+          <!-- this hidden checkbox controls the state -->
+          <input type="checkbox" class="theme-controller" value="sunset" :checked="isChecked" @change="handleDarkModeToggle" />
+
+          <!-- sun icon -->
+          <Icon name="mdi:torch" class=" swap-off fill-current" />
+          <!-- moon icon -->
+          <Icon name="mdi:lightning-bolt" class=" swap-on fill-current" />
+        </label>
         <button class="btn btn-ghost btn-circle" @click="toggleSearch">
           <Icon name="mdi:magnify" />
         </button>
@@ -51,6 +60,7 @@ export default {
     return {
       search: '',
       isSearchOpen: false,
+      isChecked: false,
     };
   },
   computed: {
@@ -80,6 +90,15 @@ export default {
         this.handleSearch();
       }
     },
+    handleDarkModeToggle() {
+      this.isChecked = !this.isChecked;
+      if (localStorage) localStorage.setItem('darkMode', this.isChecked);
+    }
+  },
+  created() {
+    if (localStorage) {
+      this.isChecked = localStorage.getItem('darkMode') === 'true' || false;
+    }
   },
 };
 </script>
